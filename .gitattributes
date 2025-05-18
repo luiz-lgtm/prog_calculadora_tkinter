@@ -1,2 +1,74 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+import tkinter as tk
+
+expressao_atual = ""
+
+def click_botao(caractere):
+    global expressao_atual
+    expressao_atual += str(caractere)
+    display.delete(0, tk.END)
+    display.insert(0, expressao_atual)
+
+def limpar_display():
+    global expressao_atual
+    display.delete(0, tk.END)
+    expressao_atual = ""
+
+def calcular_Resultado():
+    global expressao_atual
+    try:
+        # AS LINHAS ABAIXO PRECISAM ESTAR COM INDENTAÇÃO CORRETA (4 espaços ou 1 tab)
+        Resultado = str(eval(expressao_atual))
+        display.delete(0, tk.END)
+        display.insert(0, Resultado)
+        expressao_atual = Resultado
+    except Exception as e:
+        display.delete(0, tk.END)
+        display.insert(0, "Erro")
+        expressao_atual = ""
+
+janela = tk.Tk()
+janela.title('calculadora')
+
+display = tk.Entry(janela, width=30, borderwidth=5)
+display.grid(row=0, columnspan=4, padx=10, pady=10)
+
+Botao1 = tk.Button(janela,text='1',command= lambda: click_botao(1))
+Botao1.grid(row=2, column=1)
+Botao2 = tk.Button(janela,text='2', command= lambda:click_botao(2))
+Botao2.grid(row=2, column=2)
+Botao3 = tk.Button(janela,text='3',command= lambda:click_botao(3))
+Botao3.grid(row=2, column=3)
+Botao4 = tk.Button(janela,text='4',command =lambda:click_botao(4))
+Botao4.grid(row=3, column=1)
+Botao5 =tk.Button(janela,text='5',command= lambda:click_botao(5))
+Botao5.grid(row=3, column=2)
+Botao6 = tk.Button(janela,text='6',command= lambda:click_botao(6))
+Botao6.grid(row=3, column=3)
+Botao7 = tk.Button(janela,text='7',command= lambda:click_botao(7))
+Botao7.grid(row=4, column=1)
+Botao8 = tk.Button(janela,text='8',command= lambda:click_botao(8))
+Botao8.grid(row=4, column=2)
+Botao9 = tk.Button(janela,text='9',command= lambda:click_botao(9))
+Botao9.grid(row=4, column=3)
+Botao0 = tk.Button(janela, text='0',command= lambda:click_botao(0))
+Botao0.grid(row=5, column=2)
+
+Botao_soma = tk.Button(janela,text='+',command= lambda:click_botao('+'))
+Botao_soma.grid(row=2, column=0)
+
+Botao_subtracao = tk.Button(janela,text='-',command=lambda:click_botao('-'))
+Botao_subtracao.grid(row=3, column=0 )
+
+Botao_multiplicacao = tk.Button(janela,text='*',command=lambda:click_botao('*'))
+Botao_multiplicacao.grid(row=4, column=0)
+
+Botao_divisao = tk.Button(janela,text='/',command=lambda:click_botao('/'))
+Botao_divisao.grid(row=5, column=0)
+
+Botao_clear = tk.Button(janela,text='C', command=limpar_display)
+Botao_clear.grid(row=5, column=1)
+
+Botao_igual = tk.Button(janela,text='=', command=calcular_Resultado)
+Botao_igual.grid(row=6, columnspan=4)
+
+janela.mainloop()
